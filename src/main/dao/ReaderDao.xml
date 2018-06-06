@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ReaderDao">
+     <!--通过电话号码查询用户信息-->
+    <select id="findReaderByPhone" parameterType="Integer" resultType="Reader">
+        select * from tb_reader where ReaderPhone = #{readerPhone}
+    </select>
+
+    <!--注册用户插入数据-->
+    <insert id="readerRegister" parameterType="Reader">
+        insert into tb_reader(ReaderPhone,ReaderName,ReaderPassword)
+         values (#{readerPhone} ,#{readerName} ,#{readerPassword})
+    </insert>
+
+    <select id="findReaderInByPhone" parameterType="Integer" resultType="boolean">
+        select * from tb_reader where ReaderPhone = #{readerPhone}
+    </select>
+
+
+</mapper>
