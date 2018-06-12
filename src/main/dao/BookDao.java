@@ -1,6 +1,6 @@
 package dao;
 
 public interface BookDao {
-    public Integer BookIsBorrowed(String CatalogName);
+    public Integer BookIsBorrowed(Integer CatalogId);
     public void ChangeStatus(Integer BookId);
 }

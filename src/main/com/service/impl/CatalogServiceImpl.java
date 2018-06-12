@@ -18,8 +18,13 @@ public class CatalogServiceImpl implements CatalogService {
     private CatalogDao catalogDao;
 
     @Override
-    public Catalog findBookByName(String catalogName) {
-        return this.catalogDao.findBookByName(catalogName);
+    public String findBookById(Integer CatalogId) {
+        return this.catalogDao.findBookById(CatalogId);
+    }
+
+    @Override
+    public Catalog findCatalogByName(String catalogName) {
+        return this.catalogDao.findCatalogByName(catalogName);
     }
 
     @Override

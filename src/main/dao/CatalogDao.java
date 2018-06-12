@@ -5,6 +5,7 @@ import model.Catalog;
 import java.util.List;
 
 public interface CatalogDao {
-    public Catalog findBookByName(String catalogName);
+    public String findBookById(Integer catalogId);
+    public Catalog findCatalogByName(String catalogName);
     public List<Catalog> findBookByAuthor(String catalogAuthor);
 }

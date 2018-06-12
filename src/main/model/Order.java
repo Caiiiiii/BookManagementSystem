@@ -3,6 +3,7 @@ package model;
 public class Order {
     private  Integer OrderId;
     private Integer BookId;
+    private String CatalogName;
     private Integer ReaderPhone;
     private String BookLendTime;
     private String BookReturnTime;
@@ -45,5 +46,13 @@ public class Order {
 
     public void setBookReturnTime(String bookReturnTime) {
         BookReturnTime = bookReturnTime;
+    }
+
+    public String getCatalogName() {
+        return CatalogName;
+    }
+
+    public void setCatalogName(String catalogName) {
+        CatalogName = catalogName;
     }
 }

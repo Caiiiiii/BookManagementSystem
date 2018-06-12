@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="dao.CatalogDao">
-    <select id="findBookByName" parameterType="String" resultType="Catalog" >
-        select * from tb_catalog where CatalogName = #{catalogName}
+    <select id="findBookById" parameterType="Integer" resultType="String" >
+        select CatalogName from tb_catalog where CatalogId = #{catalogId}
+    </select>
+
+    <select id="findCatalogByName" parameterType="String" resultType="Catalog">
+        select * from tb_catalog where CatalogName = #{catalogId}
     </select>
 
     <resultMap id="CatalogMap" type="Catalog">

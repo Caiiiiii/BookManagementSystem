@@ -15,8 +15,8 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Override
-    public Integer BookIsBorrowed(String CatalogName) {
-        return this.bookDao.BookIsBorrowed(CatalogName);
+    public Integer BookIsBorrowed(Integer CatalogId) {
+        return this.bookDao.BookIsBorrowed(CatalogId);
     }
 
     @Override

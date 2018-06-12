@@ -2,7 +2,9 @@ package controller;
 
 import com.service.AdminService;
 import com.service.BookService;
+import com.service.CatalogService;
 import com.service.OrderService;
+import model.Catalog;
 import model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class OrderController {
     private BookService bookService;
 
     @Autowired
+    private CatalogService catalogService;
+
+    @Autowired
     private OrderService orderService;
 
     @Autowired
@@ -27,12 +32,12 @@ public class OrderController {
 
 
     @RequestMapping("/submitOrder")
-    public String SubmitOrder(Order order, @RequestParam("CatalogName") String CatalogName,
+    public String SubmitOrder(Order order, @RequestParam("CatalogId") Integer CatalogId,
                               @RequestParam("borrowTime") Integer borrowTime,
                               Model model , HttpSession session){
         Integer readerPhone = (Integer) session.getAttribute("readerPhone");
-
-        Integer bookId = bookService.BookIsBorrowed(CatalogName);
+        String CatalogName = catalogService.findBookById(CatalogId);
+        Integer bookId = bookService.BookIsBorrowed(CatalogId);
         if (bookId != null){
             //获取时间
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,6 +49,7 @@ public class OrderController {
             //数据填入
             order.setReaderPhone(readerPhone);
             order.setBookId(bookId);
+            order.setCatalogName(CatalogName);
             order.setBookLendTime(beforeTime);
             order.setBookReturnTime(afterTime);
             orderService.createOrder(order);

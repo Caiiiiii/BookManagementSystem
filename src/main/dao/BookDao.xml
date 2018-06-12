@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="dao.BookDao">
-    <select id="BookIsBorrowed" resultType="Integer">
-        select BookId from tb_book  where BookBorrowStatus = 0 limit 1
+    <select id="BookIsBorrowed" parameterType="Integer" resultType="Integer">
+        select BookId from tb_book  where BookBorrowStatus = 0 limit 1 and CatalogId = #{CatalogId}
     </select>
 
     <update id="ChangeStatus" parameterType="Integer">

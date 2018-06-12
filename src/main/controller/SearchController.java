@@ -35,7 +35,7 @@ public class SearchController {
 
             if (CatalogSelect == 1){
                 //查询书名
-                Catalog catalog = catalogService.findBookByName(CatalogInput);
+                Catalog catalog = catalogService.findCatalogByName(CatalogInput);
 //                System.out.println(catalog.getCatalogId());
             }else if(CatalogSelect == 2){
                 //查询作者
