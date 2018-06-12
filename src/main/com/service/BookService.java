@@ -1,6 +1,6 @@
 package com.service;
 
-public interface BookDaoService {
+public interface BookService {
     public Integer BookIsBorrowed(String CatalogName);
     public void ChangeStatus(Integer BookId);
 }

@@ -1,11 +1,11 @@
-package dao;
+package com.service;
 
 import Vo.OrderVo;
 import model.Order;
 
 import java.util.List;
 
-public interface AdminDao {
+public interface AdminService {
     public List<Order> findOrdersByPhone(Integer readerPhone);
     public void adpotOrder(Integer orderId);
 }

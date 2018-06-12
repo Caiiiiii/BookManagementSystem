@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,5 +20,11 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public Catalog findBookByName(String catalogName) {
         return this.catalogDao.findBookByName(catalogName);
+    }
+
+    @Override
+    public List<Catalog> findBookByAuthor(String catalogAuthor) {
+        List<Catalog> catalog = this.catalogDao.findBookByAuthor(catalogAuthor);
+        return catalog;
     }
 }

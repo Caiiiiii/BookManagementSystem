@@ -16,4 +16,24 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="Interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <!--<mvc:resources mapping="/javascript/**"-->
+                   <!--location="/js"/>-->
+    <!--<mvc:resources mapping="/styles/**"-->
+                   <!--location="/css/"/>-->
+    <!--<mvc:resources mapping="/images/**"-->
+                   <!--location="/img/"/>-->
+    <!--<mvc:resources mapping="/fonts/**"-->
+                   <!--location="/fonts/"/>-->
+    <!--<mvc:resources mapping="/icons/**"-->
+                   <!--location="/icons/"/>-->
+    <mvc:default-servlet-handler />
 </beans>

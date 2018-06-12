@@ -1,8 +1,6 @@
 package com.service.impl;
 
-import com.service.BookDaoService;
-import com.sun.deploy.panel.ITreeNode;
-import com.sun.org.apache.bcel.internal.util.ByteSequence;
+import com.service.BookService;
 import dao.BookDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class BookDaoServiceImpl implements BookDaoService {
+public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookDao bookDao;

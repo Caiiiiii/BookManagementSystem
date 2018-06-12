@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    <mapper namespace="findOrdersByPhone">
-    <select id="findOrdersByPhone" parameterType="Integer" resultMap="Order">
-        select * from tb_order where readerPhone = #{readerPhone}
+    <mapper namespace="dao.AdminDao">
+        <resultMap id="BaseResultMap" type="Order">
+         <result column="OrderId" property="OrderId"></result>
+    </resultMap>
+    <select id="findOrdersByPhone" parameterType="Integer" resultMap="BaseResultMap">
+        select OrderId from tb_order where readerPhone = #{readerPhone}
     </select>
+    <update id="adpotOrder" parameterType="Integer">
+        update tb_order set isAdopt = 1 where OrderId = #{orderId}
+    </update>
 </mapper>

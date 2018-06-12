@@ -5,4 +5,15 @@
     <select id="findBookByName" parameterType="String" resultType="Catalog" >
         select * from tb_catalog where CatalogName = #{catalogName}
     </select>
+
+    <resultMap id="CatalogMap" type="Catalog">
+        <result column="CatalogAuthor" property="CatalogAuthor"></result>
+        <result column="CatalogAuthor" property="CatalogAuthor"></result>
+        <result column="CatalogPublisher" property="CatalogPublisher"></result>
+        <result column="CatalogPublishTime" property="CatalogPublishTime"></result>
+        <result column="CatalogCanLoan" property="CatalogCanLoan"></result>
+    </resultMap>
+    <select id="findBookByAuthor" parameterType="String" resultMap="CatalogMap">
+        select * from tb_catalog where CatalogAuthor = #{catalogAuthor}
+    </select>
 </mapper>

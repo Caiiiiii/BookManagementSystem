@@ -6,7 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.service.ReaderService;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ReaderController {
@@ -21,5 +26,17 @@ public class ReaderController {
          return "reader";
     }
 
+    @RequestMapping(value = "/findReaderPhoneBySession",method = RequestMethod.GET)
+    @ResponseBody
+    public Reader findReaderPhoneBySession(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Reader reader = (Reader) session.getAttribute("READER");
+        if (reader != null){
+            return reader;
+        }
+        else{
+            return  null;
+        }
+    }
 
 }

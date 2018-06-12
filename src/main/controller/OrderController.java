@@ -1,6 +1,7 @@
 package controller;
 
-import com.service.BookDaoService;
+import com.service.AdminService;
+import com.service.BookService;
 import com.service.OrderService;
 import model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,22 @@ import java.util.Calendar;
 public class OrderController {
 
     @Autowired
-    private BookDaoService bookDaoService;
+    private BookService bookService;
 
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping("/createOrder")
-    public String CreateOrder(Order order, @RequestParam("CatalogName") String CatalogName,
+    @Autowired
+    private AdminService adminService;
+
+
+    @RequestMapping("/submitOrder")
+    public String SubmitOrder(Order order, @RequestParam("CatalogName") String CatalogName,
                               @RequestParam("borrowTime") Integer borrowTime,
                               Model model , HttpSession session){
         Integer readerPhone = (Integer) session.getAttribute("readerPhone");
-        System.out.println(readerPhone);
-        Integer bookId = bookDaoService.BookIsBorrowed(CatalogName);
+
+        Integer bookId = bookService.BookIsBorrowed(CatalogName);
         if (bookId != null){
             //获取时间
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,12 +49,17 @@ public class OrderController {
             orderService.createOrder(order);
 
             //修改图书状态
-            bookDaoService.ChangeStatus(bookId);
+            bookService.ChangeStatus(bookId);
             return "success";
         }
         model.addAttribute("msg1","借阅失败");
         return "search";
     }
 
+    @RequestMapping("/adoptSubmitOrder")
+    public String AdoptOrder(@RequestParam("OrderId") Integer orderId){
+        adminService.adpotOrder(orderId);
+        return "success";
+    }
 
 }
