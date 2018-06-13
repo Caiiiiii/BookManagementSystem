@@ -32,19 +32,21 @@
     </div>
 </div>
 
-<table id="resultTable" width="100%" border="1" >
+<div class="mdui-table-fluid table-size">
+<table id="resultTable" width="100%"  class="mdui-table mdui-table-hoverable">
     <tr>
-        <td>书ID</td>
-        <td>书名</td>
-        <td>书作者</td>
-        <td></td>
+        <td>图书ID</td>
+        <td>图书名称</td>
+        <td>图书作者</td>
+        <td>操作</td>
     </tr>
 </table>
+</div>
 
 <!--对话框-->
 <div class="mdui-dialog " id="dialog">
     <div class="mdui-dialog-title">借阅书籍</div>
-    <div class="mdui-dialog-content">
+    <div class="mdui-dialog-content mdui-dialog-content-size">
         <div class="dialogPosition">
         <h4 class="dialog-text-left none-select">借阅</h4>
             <div id="buttonDel" class="none-select"><i class="mdui-icon material-icons dialog-text-del" >remove</i></div>
@@ -90,7 +92,7 @@
         success:function (data) {
             //循环生成列表
             for(var i=0; i<data.length;i++){
-                var button =" <button onclick='addCart(this)' value= '"+data[i].catalogId+"'  id= '"+data[i].catalogId+"'>添加到购物车</button>";
+                var button =" <button class='mdui-btn mdui-btn-raised' onclick='addCart(this)' value= '"+data[i].catalogId+"'  id= '"+data[i].catalogId+"'>添加到购物车</button>";
                 var res = "<tr><td>"+data[i].catalogId+"</td><td>"+data[i].catalogName
                            +"</td><td>"+data[i].catalogAuthor+"</td> " +
                            "<td>"+button+"</td></tr>";
@@ -171,6 +173,14 @@
     $("#submitOrderButton").click(function () {
         var num =  $("#borrowNum").text();
         console.log("订阅书本目录:"+catalogId+",订阅月数:"+num);
+        $.ajax({
+            type:'POST',
+            url:'/submitOrder',
+            data:{CatalogId:catalogId,borrowTime:num},
+            success:function (data) {
+                console.log("上传了");
+            }
+        })
     })
 </script>
 
@@ -211,6 +221,15 @@
         -webkit-user-select:none;
         -ms-user-select:none;
         user-select:none;
+    }
+    .table-size{
+        top: 40px;
+        position: relative;
+        margin: auto;
+        max-width: 1300px;
+    }
+    .mdui-dialog-content-size{
+        height: 80px;
     }
 </style>
 </html>

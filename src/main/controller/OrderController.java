@@ -35,6 +35,9 @@ public class OrderController {
     public String SubmitOrder(Order order, @RequestParam("CatalogId") Integer CatalogId,
                               @RequestParam("borrowTime") Integer borrowTime,
                               Model model , HttpSession session){
+
+        System.out.println(CatalogId+"==="+borrowTime);
+
         Integer readerPhone = (Integer) session.getAttribute("readerPhone");
         String CatalogName = catalogService.findBookById(CatalogId);
         Integer bookId = bookService.BookIsBorrowed(CatalogId);
