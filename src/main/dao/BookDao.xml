@@ -4,7 +4,7 @@
     <mapper namespace="dao.BookDao">
     <select id="BookIsBorrowed" parameterType="Integer" resultType="Integer">
 
-        select BookId from tb_book  where BookBorrowStatus = 0 limit 1
+        select BookId from tb_book  where CatalogId = #{CatalogId} and BookBorrowStatus = 0 limit 1
     </select>
 
     <update id="ChangeStatus" parameterType="Integer">
