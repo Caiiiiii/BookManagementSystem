@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<form method="POST">
+<form>
     <div class="div-layout">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">电话</label>
@@ -39,7 +39,7 @@
         </div>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">姓名</label>
-            <input class="mdui-textfield-input" type="text" name="readerName"/>
+            <input class="mdui-textfield-input" type="text" name="readerName" id="readerName"/>
         </div>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">密码</label>
@@ -55,32 +55,67 @@
     </div>
 </form>
 
-<form action="${pageContext.request.contextPath}/register" method="post">
-    电话：<input type="text" name="readerPhone"> <br>
-    姓名：<input type="text" name="readerName">
-    密码：<input type="password" name="readerPassword"><br>
-
-    <input type="submit" value="登录">
-</form>
 </body>
 <script type="text/javascript">
     $("#registerButton").click(function () {
         var phone = $("#readerPhone").val();
         var password = $("#readerPassword").val();
         var rePassword = $("#readerRePassword").val();
+        var readerName = $("#readerName").val();
+
+        if (phone == ""){
+            mdui.snackbar({
+                message: '电话号码不能为空',
+                position: 'bottom'
+            });
+            return false;
+        }
 
         if (!isNaN(phone)){
-            console.log("数字");
+            console.log("电话ok");
         } else{
-            console.log("非数字");
+                mdui.snackbar({
+                    message: '电话号码只能填数字',
+                    position: 'bottom'
+                });
+            return false;
         }
 
+        if (readerName == ""){
+            mdui.snackbar({
+                message: '姓名不能为空',
+                position: 'bottom'
+            });
+            return false;
+        }
+
+        if (password == "" || rePassword == ""){
+            mdui.snackbar({
+                message: '密码不能为空',
+                position: 'bottom'
+            });
+            return false;
+        }
+
+
         if (password == rePassword && password != ""  && rePassword != ""){
-            console.log("ok");
+            console.log("密码ok");
+        }else{
+            mdui.snackbar({
+                message: '两次密码不相同',
+                position: 'bottom'
+            });
+            return false;
         }
-        else{
-            console.log("密码不正确");
-        }
+
+        $.ajax({
+            type:'POST',
+            url:'/register',
+            data:{readerPhone:phone,readerName:readerName,readerPassword:password},
+            success:function (data) {
+                console.log(data);
+            }
+        })
     })
 
 </script>

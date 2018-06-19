@@ -36,20 +36,24 @@ public class LoginController {
 
         reader = readerService.findReaderByPhone(readerPhone);
         String saltPassword = Md5AddSalt.getMD5WithSalt(readerPassword);
-        Object privatePage = session.getAttribute("privatePage");
+        Object privatePage = session.getAttribute("privatePage"); //地址
 
         if(reader != null && reader.getReaderPassword().equals(saltPassword)){
-            if(reader.getReaderLevel() == 2)
-            //跳转到普通用户界面
-            session.setAttribute("READER",reader);
-            {  return "redirect:"+privatePage.toString();   }
-        }else if (reader.getReaderLevel() == 1){
+
+            if(reader.getReaderLevel() == 2){
+                //跳转到普通用户界面
+             session.setAttribute("READER",reader);
+             System.out.println(privatePage.toString());
+             return "redirect:"+privatePage.toString();
+            }
+            else if (reader.getReaderLevel() == 1){
             //跳转到管理员管理页面
             session.setAttribute("READER",reader);
             return "success";
-        }
+            }
 
-        model.addAttribute("msg","账号密码错误");
+        }
+        System.out.println("账号密码错误");
         return "login";
     }
 }

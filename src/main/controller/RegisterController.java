@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -20,7 +21,11 @@ public class RegisterController {
 
 
     @RequestMapping(value = "/register",method = RequestMethod.GET)
-    public String toRegister(){ return "register"; }
+    public String toRegister(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute("privatePage", request.getHeader("Referer"));
+        return "register";
+    }
 
     /**
      * 注册个人用户
@@ -31,7 +36,8 @@ public class RegisterController {
                            @RequestParam("readerPassword") String readerPassword , Model model, HttpSession session){
         //加密密码
         String saltPassword = Md5AddSalt.getMD5WithSalt(readerPassword);
-
+        Object privatePage =  session.getAttribute("privatePage");
+        System.out.println(privatePage.toString());
         reader.setReaderPhone(readerPhone);
         reader.setReaderName(readerName);
         reader.setReaderPassword(saltPassword);
@@ -39,9 +45,9 @@ public class RegisterController {
         if (readerService.findReaderByPhone(readerPhone) == null){
             readerService.readerRegister(reader);
             session.setAttribute("readerPhone",readerPhone);
-            return "success";
+            return "redirect:"+privatePage.toString();
         }else{
-            model.addAttribute("msg","此电话号码已存在");
+            System.out.println("此电话号码已存在");
             return "register";
         }
 

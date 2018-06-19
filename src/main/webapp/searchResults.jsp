@@ -172,7 +172,6 @@
     }
     $("#submitOrderButton").click(function () {
         var num =  $("#borrowNum").text();
-        console.log("订阅书本目录:"+catalogId+",订阅月数:"+num);
         $.ajax({
             type:'POST',
             url:'/submitOrder',

@@ -31,18 +31,18 @@
 </div>
 
 
-<form action="${pageContext.request.contextPath}/login" method="post">
+<form>
     <div class="div-layout">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">电话</label>
-            <input class="mdui-textfield-input" type="text" name="readerPhone"/>
+            <input class="mdui-textfield-input" type="text" name="readerPhone" id="readerPhone"/>
         </div>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">密码</label>
-            <input class="mdui-textfield-input" type="password" name="readerPassword"/>
+            <input class="mdui-textfield-input" type="password" name="readerPassword" id="readerPassword"/>
         </div>
         <div class="login-button">
-            <button type="submit" class="mdui-btn mdui-btn-raised mdui-ripple login-button-width">登录</button>
+            <button id="submitButton" type="button" class="mdui-btn mdui-btn-raised mdui-ripple login-button-width">登录</button>
         </div>
     </div>
 </form>
@@ -66,5 +66,34 @@
             height: 50px;
         }
     </style>
+
+    <script type="text/javascript">
+        $("#submitButton").click(function () {
+            var readerPhone = $("#readerPhone").val();
+            var readerPassword = $("#readerPassword").val();
+            
+            if (!isNaN(readerPhone)){
+                console.log("ok");
+            }else {
+                return false;
+            }
+
+            if (readerPassword != ""){
+                console.log(" pass ok");
+            } else{
+                return false;
+            }
+
+            $.ajax({
+                type:'POST',
+                url:'/login',
+                data:{readerPhone:readerPhone,readerPassword:readerPassword},
+                success:function (data) {
+                    console.log(data);
+                }
+            })
+            
+        })
+    </script>
 </html>
 
