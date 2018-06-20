@@ -1,6 +1,5 @@
 package controller;
 
-import Vo.OrderVo;
 import com.service.AdminService;
 import model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class ShoppingCartController {
 
     @RequestMapping("/adminSearchOrders")
     public String adminSearchOrder(){
-        return "admin";
+        return "WEB-INF/jsp/admin";
     }
 
     @RequestMapping("/findOrdersByPhone")
@@ -28,6 +27,6 @@ public class ShoppingCartController {
              ) {
             System.out.println(order.getOrderId());
         }
-         return "admin" ;
+         return "WEB-INF/jsp/admin";
     }
 }

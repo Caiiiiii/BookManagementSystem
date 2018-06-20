@@ -1,6 +1,7 @@
 package controller;
 
 import Utils.Md5AddSalt;
+import com.alibaba.fastjson.JSONObject;
 import com.service.ReaderService;
 import model.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,31 +26,43 @@ public class RegisterController {
     public String toRegister(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute("privatePage", request.getHeader("Referer"));
-        return "register";
+        return "WEB-INF/jsp/register";
     }
 
     /**
      * 注册个人用户
      * */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String register(Reader reader, @RequestParam("readerPhone") Integer readerPhone,
-                           @RequestParam("readerName") String readerName,
-                           @RequestParam("readerPassword") String readerPassword , Model model, HttpSession session){
+    @ResponseBody
+    public JSONObject register(Reader reader, @RequestParam("readerPhone") Integer readerPhone,
+                               @RequestParam("readerName") String readerName,
+                               @RequestParam("readerPassword") String readerPassword , HttpSession session){
         //加密密码
         String saltPassword = Md5AddSalt.getMD5WithSalt(readerPassword);
-        Object privatePage =  session.getAttribute("privatePage");
-        System.out.println(privatePage.toString());
-        reader.setReaderPhone(readerPhone);
-        reader.setReaderName(readerName);
-        reader.setReaderPassword(saltPassword);
 
+        //创建json对象
+        JSONObject jo = new JSONObject();
+        //获取前一个页面的链接
+        Object privatePage =  session.getAttribute("privatePage");
+        //判断该电话号码是否存在
         if (readerService.findReaderByPhone(readerPhone) == null){
+
+            //填写入数据库
+            reader.setReaderPhone(readerPhone);
+            reader.setReaderName(readerName);
+            reader.setReaderPassword(saltPassword);
             readerService.readerRegister(reader);
+
+            //添加该用户的session
             session.setAttribute("readerPhone",readerPhone);
-            return "redirect:"+privatePage.toString();
+            //放入json
+            jo.put("index",1);
+            jo.put("url",privatePage.toString());
+            return jo;
         }else{
-            System.out.println("此电话号码已存在");
-            return "register";
+            //index为3时,'电话已经存在'
+            jo.put("index",3);
+            return jo;
         }
 
 

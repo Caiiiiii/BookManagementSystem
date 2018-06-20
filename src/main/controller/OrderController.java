@@ -4,7 +4,6 @@ import com.service.AdminService;
 import com.service.BookService;
 import com.service.CatalogService;
 import com.service.OrderService;
-import model.Catalog;
 import model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,16 +58,16 @@ public class OrderController {
 
             //修改图书状态
             bookService.ChangeStatus(bookId);
-            return "success";
+            return "WEB-INF/jsp/success";
         }
         model.addAttribute("msg1","借阅失败");
-        return "search";
+        return "WEB-INF/jsp/search";
     }
 
     @RequestMapping("/adoptSubmitOrder")
     public String AdoptOrder(@RequestParam("OrderId") Integer orderId){
         adminService.adpotOrder(orderId);
-        return "success";
+        return "WEB-INF/jsp/success";
     }
 
 }

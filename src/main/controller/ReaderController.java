@@ -19,11 +19,16 @@ public class ReaderController {
    @Autowired
    private ReaderService readerService;
 
+   @RequestMapping("/index")
+   public String toIndex(){
+       return "/index.jsp";
+   }
+
     @RequestMapping("/findReaderByPhone")
     public String findReaderByPhone(@RequestParam("readerPhone") Integer rederPhone, Model model){
          Reader reader = readerService.findReaderByPhone(rederPhone);
          model.addAttribute("reader",reader);
-         return "reader";
+         return "WEB-INF/jsp/reader";
     }
 
     @RequestMapping(value = "/findReaderPhoneBySession",method = RequestMethod.GET)

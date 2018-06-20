@@ -10,9 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <title>图书馆</title>
-    <link rel="stylesheet" href="css/mdui.css">
-    <script src="js/mdui.js"></script>
-    <script src="js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="../../css/mdui.css">
+    <script src="../../js/mdui.js"></script>
+    <script src="../../js/jquery-3.3.1.js"></script>
 </head>
 <body>
 

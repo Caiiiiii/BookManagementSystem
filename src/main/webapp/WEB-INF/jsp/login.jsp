@@ -10,9 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <title>图书馆</title>
-    <link rel="stylesheet" href="css/mdui.css">
-    <script src="js/mdui.js"></script>
-    <script src="js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="../../css/mdui.css">
+    <script src="../../js/mdui.js"></script>
+    <script src="../../js/jquery-3.3.1.js"></script>
 </head>
 <body>
 
@@ -20,8 +20,8 @@
 <div class="mdui-appbar">
     <div class="mdui-toolbar mdui-color-grey">
 
-        <a href="${pageContext.request.contextPath}/login" class="mdui-typo-title mdui-text-color-white">登录 </a>
-        <a href="${pageContext.request.contextPath}/register" class="mdui-typo-title mdui-text-color-white">注册</a>
+        <a href="index.jsp" class="mdui-typo-title mdui-text-color-white">首页</a>
+
         <div class="mdui-toolbar-spacer"></div>
         <a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
@@ -73,23 +73,25 @@
             var readerPassword = $("#readerPassword").val();
             
             if (!isNaN(readerPhone)){
-                console.log("ok");
             }else {
                 return false;
             }
 
             if (readerPassword != ""){
-                console.log(" pass ok");
             } else{
                 return false;
             }
 
             $.ajax({
                 type:'POST',
-                url:'/login',
+                url:'/loginIn',
+                dataType:"json",
                 data:{readerPhone:readerPhone,readerPassword:readerPassword},
-                success:function (data) {
-                    console.log(data);
+                success:function (result) {
+                if (result.index == '1'){window.location.href = result.url;}
+                else if (result.index == '2'){}
+                else if (result.index == '3'){console.log("账号或密码错误");}
+
                 }
             })
             

@@ -13,8 +13,8 @@
 <div class="mdui-appbar">
     <div class="mdui-toolbar mdui-color-grey">
 
-        <a href="${pageContext.request.contextPath}/login" class="mdui-typo-title mdui-text-color-white">登录 </a>
-        <a href="${pageContext.request.contextPath}/register" class="mdui-typo-title mdui-text-color-white">注册</a>
+        <a href="/login" class="mdui-typo-title mdui-text-color-white">登录 </a>
+        <a href="/register" class="mdui-typo-title mdui-text-color-white">注册</a>
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
         <a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>
@@ -25,7 +25,7 @@
 </div>
 <div class="mdui-container main-layout">
 
-        <form  action="searchResults.jsp" method="get">
+        <form action="searchResults.jsp" method="get">
             <div class="mdui-container mdui-valign" style="height: 200px;">
                 <h2 class="title-text">查询书籍</h2>
 
@@ -44,7 +44,7 @@
 </body>
 
 <script>
-    
+
 </script>
 
 <style type="text/css">
