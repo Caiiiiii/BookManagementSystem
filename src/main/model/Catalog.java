@@ -7,7 +7,15 @@ public class Catalog {
     private String CatalogPublisher;
     private String CatalogPublishTime;
     private Integer CatalogCanLoan;
+    private Integer CatalogHadNum;
 
+    public Integer getCatalogHadNum() {
+        return CatalogHadNum;
+    }
+
+    public void setCatalogHadNum(Integer catalogHadNum) {
+        CatalogHadNum = catalogHadNum;
+    }
 
     public Integer getCatalogId() {
         return CatalogId;

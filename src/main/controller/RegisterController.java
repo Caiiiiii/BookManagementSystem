@@ -54,7 +54,8 @@ public class RegisterController {
             readerService.readerRegister(reader);
 
             //添加该用户的session
-            session.setAttribute("readerPhone",readerPhone);
+            session.setAttribute("READERPHONE",readerPhone);
+            session.setAttribute("READERNAME",reader.getReaderName());
             //放入json
             jo.put("index",1);
             jo.put("url",privatePage.toString());

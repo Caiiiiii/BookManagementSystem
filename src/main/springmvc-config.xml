@@ -39,12 +39,12 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--<bean class="Interceptor.LoginInterceptor"></bean>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <bean class="Interceptor.LoginInterceptor"></bean>
+    </mvc:interceptor>
+</mvc:interceptors>
 
 
     <!--<mvc:resources mapping="/javascript/**"-->

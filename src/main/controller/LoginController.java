@@ -50,7 +50,8 @@ public class LoginController {
             //跳转到普通用户界面
             if(reader.getReaderLevel() == 2){
              //session中添加reader信息
-             session.setAttribute("READER",reader);
+             session.setAttribute("READERPHONE",readerPhone);
+             session.setAttribute("READERNAME",reader.getReaderName());
              //将url放入JSONObject中
              jo.put("index",1);
              jo.put("url",privatePage.toString());

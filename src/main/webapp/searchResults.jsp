@@ -25,11 +25,34 @@
         <a href="${pageContext.request.contextPath}/register" class="mdui-typo-title mdui-text-color-white">注册</a>
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
-        <a><i class="mdui-icon material-icons mdui-text-color-white" >shopping_cart</i></a>
+        <div id="loginUp" class=" mdui-ripple loginUpDisplay loginUpSize">
+            <i class="mdui-icon material-icons iconsPosition">power_settings_new</i>
+            <div class="mdui-list-item-content loginUpTextPosition">退出</div>
+        </div>
+        <a id="shoppingCart" class="mdui-ripple" href="${pageContext.request.contextPath}/toShoppingCart">
+            <i class="mdui-icon material-icons mdui-text-color-white" >shopping_cart</i>
+        </a>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>-->
     </div>
+</div>
+
+<div class="mdui-container main-layout">
+
+    <form action="searchResults.jsp" method="get">
+        <div class="mdui-container mdui-valign" style="height: 200px;">
+            <h2 class="title-text">查询书籍</h2>
+
+            <select class="mdui-select" mdui-select="{position: 'bottom'}" name="CatalogSelect">
+                <option value="1">书名</option>
+                <option value="2">作者</option>
+            </select>
+            <input class="mdui-textfield-input title-input"  type="text" name="CatalogInput">
+            <input type="hidden" id="url" name="url" value="">
+            <button type="submit" class="mdui-btn mdui-color-grey mdui-ripple">检索</button>
+        </div>
+    </form>
 </div>
 
 <div class="mdui-table-fluid table-size">
@@ -137,9 +160,11 @@
             if(data != "" && data != null)
             {
                 $("#readerInfo").html(data.readerName);
+                $("#loginUp").css("display","block");
             }else
             {
                 $("#readerInfo").html("请登录");
+                $("#loginUp").css("display","none");
             }
         },
         error:function () {
@@ -173,17 +198,79 @@
     $("#submitOrderButton").click(function () {
         var num =  $("#borrowNum").text();
         $.ajax({
-            type:'POST',
-            url:'/submitOrder',
-            data:{CatalogId:catalogId,borrowTime:num},
+            type:'GET',
+            url:'confirmIsLogin',
             success:function (data) {
-                console.log("上传了");
+                if (data.index == '1'){
+                    $.ajax({
+                        type:'POST',
+                        url:'/submitOrder',
+                        data:{CatalogId:catalogId,borrowTime:num},
+                        datatype:'json',
+                        success:function (data) {
+                            if (data.index == '1'){
+                                alert("success");
+                            } else if (data.index == '3'){
+                                alert("false");
+                            }
+                        }
+                    })
+                } else if (data.index == '3'){
+                    window.location.href =" ${pageContext.request.contextPath}/login";
+                }
+
+            }
+        })
+
+    })
+
+    $("#loginUp").click(function () {
+        $.ajax({
+            type:'GET',
+            url:'/loginUp',
+            success:function (data) {
+                if (data.index == "1"){
+                    //成功了再调用一次ajax刷新页面
+                    $.ajax({
+                        type:'GET',
+                        url:'/findReaderPhoneBySession',
+                        success:function (data) {
+                            console.log(data);
+                            if(data == "" || data == null)
+                            {
+                                $("#readerInfo").html("请登录");
+                                $("#loginUp").css("display","none");
+                                mdui.snackbar({
+                                    message: '您已登出',
+                                    position: 'bottom'
+                                });
+                            }
+                        },
+                        error:function () {
+                            alert("失败了");
+                        }
+                    })
+
+                }
             }
         })
     })
 </script>
 
 <style type="text/css">
+    .main-layout{
+        width: 100%;
+        max-width: 700px;
+        margin: auto;
+        position: relative;
+    }
+    .title-text{
+        position: absolute;
+        top: 35px;
+    }
+    .title-input{
+        width: 500px;
+    }
     .dialogPosition{
         z-index: 100;
         position: relative;
@@ -222,13 +309,31 @@
         user-select:none;
     }
     .table-size{
-        top: 40px;
+        /*top: 40px;*/
         position: relative;
         margin: auto;
         max-width: 1300px;
     }
     .mdui-dialog-content-size{
         height: 80px;
+    }
+    .loginUpSize{
+        width: 70px;
+        position: relative;
+
+    }
+    .loginUpDisplay{
+        display: none;
+    }
+    .iconsPosition{
+        position: absolute;
+        float: left;
+        top:12px;
+    }
+    .loginUpTextPosition{
+        position: relative;
+        left: 25px;
+
     }
 </style>
 </html>

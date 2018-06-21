@@ -24,7 +24,7 @@
 
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
-        <a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>
+        <!--<a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>-->

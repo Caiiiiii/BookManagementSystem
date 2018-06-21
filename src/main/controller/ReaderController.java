@@ -31,13 +31,21 @@ public class ReaderController {
          return "WEB-INF/jsp/reader";
     }
 
+    //获取该用户的session
     @RequestMapping(value = "/findReaderPhoneBySession",method = RequestMethod.GET)
     @ResponseBody
-    public Reader findReaderPhoneBySession(HttpServletRequest request){
+    public Reader findReaderPhoneBySession(Reader reader,HttpServletRequest request){
         HttpSession session = request.getSession();
-        Reader reader = (Reader) session.getAttribute("READER");
-        if (reader != null){
-            return reader;
+//        System.out.println(session.getId());
+        //获取session中该用户的值
+        Integer readerPhone = (Integer) session.getAttribute("READERPHONE");
+        String readerName = (String)session.getAttribute("READERNAME");
+//        System.out.println(readerPhone+"==="+readerName);
+        //如果不为空值 就赋值返回对象
+        if (readerName != null && readerName != ""){
+            reader.setReaderPhone(readerPhone);
+            reader.setReaderName(readerName);
+           return reader;
         }
         else{
             return  null;

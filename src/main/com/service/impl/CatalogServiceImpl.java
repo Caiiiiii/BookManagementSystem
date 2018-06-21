@@ -23,6 +23,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public Catalog findCatalogById(Integer catalogId) {
+        return this.catalogDao.findCatalogById(catalogId);
+    }
+
+    @Override
     public Catalog findCatalogByName(String catalogName) {
         return this.catalogDao.findCatalogByName(catalogName);
     }
@@ -31,5 +36,15 @@ public class CatalogServiceImpl implements CatalogService {
     public List<Catalog> findBookByAuthor(String catalogAuthor) {
         List<Catalog> catalog = this.catalogDao.findBookByAuthor(catalogAuthor);
         return catalog;
+    }
+
+    @Override
+    public void ChangeCanLoanNum(Integer catalogId,Integer catalogCanLoan) {
+        this.catalogDao.ChangeCanLoanNum(catalogId,catalogCanLoan);
+    }
+
+    @Override
+    public Integer findCanLoanNumByCatalogId(Integer catalogId) {
+        return this.catalogDao.findCanLoanNumByCatalogId(catalogId);
     }
 }

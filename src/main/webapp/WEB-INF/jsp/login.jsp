@@ -23,7 +23,7 @@
         <a href="index.jsp" class="mdui-typo-title mdui-text-color-white">首页</a>
 
         <div class="mdui-toolbar-spacer"></div>
-        <a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>
+        <!--<a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>-->
@@ -88,9 +88,21 @@
                 dataType:"json",
                 data:{readerPhone:readerPhone,readerPassword:readerPassword},
                 success:function (result) {
-                if (result.index == '1'){window.location.href = result.url;}
+                if (result.index == '1'){
+                    mdui.snackbar({
+                        message: '登录成功',
+                        position: 'bottom'
+                    });
+                    window.location.href = result.url;
+                }
                 else if (result.index == '2'){}
-                else if (result.index == '3'){console.log("账号或密码错误");}
+                else if (result.index == '3'){
+                    mdui.snackbar({
+                        message: '账号或密码错误',
+                        position: 'bottom'
+                    });
+                }
+
 
                 }
             })

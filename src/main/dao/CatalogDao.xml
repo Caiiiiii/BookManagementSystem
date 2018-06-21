@@ -6,6 +6,10 @@
         select CatalogName from tb_catalog where CatalogId = #{catalogId}
     </select>
 
+    <select id="findCatalogById" parameterType="Integer" resultType="Catalog">
+        select * from tb_catalog where CatalogId = #{catalogId}
+    </select>
+
     <select id="findCatalogByName" parameterType="String" resultType="Catalog">
         select * from tb_catalog where CatalogName = #{catalogId}
     </select>
@@ -19,5 +23,18 @@
     </resultMap>
     <select id="findBookByAuthor" parameterType="String" resultMap="CatalogMap">
         select * from tb_catalog where CatalogAuthor = #{catalogAuthor}
+    </select>
+
+    <!--<parameterMap id="ChangeCanLoanNumMap" type="Integer">-->
+        <!--<parameter property="catalogCanLoan"></parameter>-->
+        <!--<parameter property="catalogId"></parameter>-->
+    <!--</parameterMap>-->
+
+    <update id="ChangeCanLoanNum" parameterType="Integer">
+        update tb_catalog set CatalogCanLoan = #{arg1} where CatalogId = #{arg0}
+    </update>
+
+    <select id="findCanLoanNumByCatalogId" parameterType="Integer" resultType="Integer">
+        select CatalogCanLoan from tb_catalog where CatalogId = #{catalogId}
     </select>
 </mapper>

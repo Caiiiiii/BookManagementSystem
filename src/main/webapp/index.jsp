@@ -17,7 +17,14 @@
         <a href="/register" class="mdui-typo-title mdui-text-color-white">注册</a>
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
-        <a><i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i></a>
+        <!--退出按钮-->
+        <div id="loginUp" class=" mdui-ripple loginUpDisplay loginUpSize">
+            <i class="mdui-icon material-icons iconsPosition">power_settings_new</i>
+            <div class="mdui-list-item-content loginUpTextPosition">退出</div>
+        </div>
+        <a id="shoppingCart" class="mdui-ripple" href="${pageContext.request.contextPath}/toShoppingCart">
+            <i class="mdui-icon material-icons mdui-text-color-white">shopping_cart</i>
+        </a>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">refresh</i></a>-->
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>-->
@@ -61,6 +68,25 @@
     .title-input{
         width: 500px;
     }
+    .loginUpSize{
+        width: 70px;
+        position: relative;
+
+    }
+    .loginUpDisplay{
+        display: none;
+    }
+    .iconsPosition{
+        position: absolute;
+        float: left;
+        top:12px;
+    }
+    .loginUpTextPosition{
+        position: relative;
+        left: 25px;
+
+    }
+
 
 </style>
 
@@ -78,9 +104,11 @@
             if(data != "" && data != null)
             {
             $("#readerInfo").html(data.readerName);
+            $("#loginUp").css("display","block");
              }else
                  {
                 $("#readerInfo").html("请登录");
+                     $("#loginUp").css("display","none");
                  }
         },
         error:function () {
@@ -96,5 +124,52 @@
         $("#url").val(url);
         console.log(url);
     });
+    
+    $("#loginUp").click(function () {
+        $.ajax({
+            type:'GET',
+            url:'/loginUp',
+            success:function (data) {
+                    if (data.index == "1"){
+                        //成功了再调用一次ajax刷新页面
+                        $.ajax({
+                            type:'GET',
+                            url:'/findReaderPhoneBySession',
+                            success:function (data) {
+                                console.log(data);
+                                if(data == "" || data == null)
+                                {
+                                    $("#readerInfo").html("请登录");
+                                    $("#loginUp").css("display","none");
+                                    mdui.snackbar({
+                                        message: '您已登出',
+                                        position: 'bottom'
+                                    });
+                                }
+                            },
+                            error:function () {
+                                alert("失败了");
+                            }
+                        })
+
+                    }
+            }
+        })
+    })
+
+    //确认是否登录
+    <%--$("#shoppingCart").click(function () {--%>
+        <%--$.ajax({--%>
+            <%--type:'GET',--%>
+            <%--url:'/confirmIsLogin',--%>
+            <%--success:function (data) {--%>
+                  <%--if (data.index == '1'){--%>
+                      <%--window.location.href = "${pageContext.request.contextPath}/toShoppingCart";--%>
+                  <%--} else if (data.index == '3'){--%>
+
+                  <%--}--%>
+            <%--}--%>
+        <%--})--%>
+    <%--})--%>
 </script>
 </html>
