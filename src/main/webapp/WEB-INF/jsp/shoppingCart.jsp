@@ -42,11 +42,11 @@
             <td>订单号</td>
             <td>书本号</td>
             <td>书名</td>
-            <td>借阅人电话</td>
             <td>借阅时间</td>
             <td>应归还时间</td>
             <td>是否通过允许</td>
         </tr>
+
     </table>
 </div>
 
@@ -62,23 +62,33 @@
             if(data != "" && data != null)
             {
                 readerPhone = data.readerPhone;
+                // console.log(readerPhone);
                 $("#readerInfo").html(data.readerName);
                 $("#loginUp").css("display","block");
+
+                //获取订单
+                $.ajax({
+                    type:'POST',
+                    url:'/findOrdersByPhone',
+                    data:{readerPhone:readerPhone},
+                    success:function (data) {
+                        for(var i=0; i<data.length;i++){
+                            console.log(data[i].orderId);
+                            var res = "<tr><td>"+data[i].orderId+"</td><td>"+data[i].bookId+"</td>" +
+                                "<td>"+data[i].catalogName+"</td>" +
+                                "<td>"+data[i].bookLendTime+"</td>" +
+                                "<td>"+data[i].bookReturnTime+"</td><td>"+data[i].isAdopt+"</td></tr>";
+
+                            $("#resultTable").append(res);
+                        }
+                    }
+                })
             }
         },
 
     })
 
-    $.ajax({
-        type:'POST',
-        url:'/findOrdersByPhone',
-        data:{readerPhone:readerPhone},
-        success:function (data) {
-            for(var i=0; i<data.length;i++){
-                console.log(data.orderId);
-            }
-        }
-    })
+
     // $.ajax({
     //     type:'POST',
     //     url:'',

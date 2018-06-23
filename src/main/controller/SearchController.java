@@ -31,15 +31,17 @@ public class SearchController {
 
             if (CatalogSelect == 1){
                 //查询书名
-                Catalog catalog = catalogService.findCatalogByName(CatalogInput);
+                List<Catalog> catalogs = catalogService.findCatalogByName(CatalogInput);
+                return catalogs;
+
 //                System.out.println(catalog.getCatalogId());
             }else if(CatalogSelect == 2){
                 //查询作者
                 List<Catalog> catalogs = catalogService.findBookByAuthor(CatalogInput);
-                for (Catalog catalog: catalogs
-                     ) {
-                    System.out.println(catalog.getCatalogId());
-                }
+//                for (Catalog catalog: catalogs
+//                     ) {
+//                    System.out.println(catalog.getCatalogId());
+//                }
                 return catalogs;
 //
             }

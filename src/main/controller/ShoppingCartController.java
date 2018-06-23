@@ -44,12 +44,14 @@ public class ShoppingCartController {
     }
 
     @RequestMapping(value = "/findOrdersByPhone",method = RequestMethod.POST)
-    public List<Order> findOrderByPhone(@RequestParam("readerPhone") Integer readerPhone){
+    @ResponseBody
+    public List<Order> findOrderByPhone(Integer readerPhone){
+//        System.out.println(readerPhone);
        List<Order> orders = adminService.findOrdersByPhone(readerPhone);
-        for (Order order: orders
-             ) {
-            System.out.println(order.getOrderId());
-        }
+//        for (Order order: orders
+//             ) {
+//            System.out.println(order.getOrderId());
+//        }
         if (orders.size() > 0){
             return orders;
         }else{

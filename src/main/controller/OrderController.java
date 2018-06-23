@@ -66,13 +66,14 @@ public class OrderController {
             order.setReaderPhone(readerPhone);
             order.setBookId(bookId);
             order.setCatalogName(CatalogName);
+            System.out.println(CatalogName);
             order.setBookLendTime(beforeTime);
             order.setBookReturnTime(afterTime);
             orderService.createOrder(order);
 
             //修改目录的图书数量
             int newNum = catalogService.findCanLoanNumByCatalogId(CatalogId) - 1;
-            System.out.println("可节约图书为："+newNum);
+//            System.out.println("可节约图书为："+newNum);
             catalogService.ChangeCanLoanNum(CatalogId,newNum);
 
             //修改图书状态

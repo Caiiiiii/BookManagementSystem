@@ -4,9 +4,14 @@
     <mapper namespace="dao.AdminDao">
         <resultMap id="BaseResultMap" type="Order">
          <result column="OrderId" property="OrderId"></result>
+         <result column="BookId" property="BookId"></result>
+         <result column="CatalogName" property="catalogName"></result>
+         <result column="BookLendTime" property="BookLendTime"></result>
+         <result column="BookReturnTime" property="BookReturnTime"></result>
+         <result column="isAdopt" property="isAdopt"></result>
     </resultMap>
     <select id="findOrdersByPhone" parameterType="Integer" resultMap="BaseResultMap">
-        select OrderId from tb_order where readerPhone = #{readerPhone}
+        select * from tb_order where ReaderPhone = #{readerPhone}
     </select>
     <update id="adpotOrder" parameterType="Integer">
         update tb_order set isAdopt = 1 where OrderId = #{orderId}

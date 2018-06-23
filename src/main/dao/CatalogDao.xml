@@ -10,8 +10,8 @@
         select * from tb_catalog where CatalogId = #{catalogId}
     </select>
 
-    <select id="findCatalogByName" parameterType="String" resultType="Catalog">
-        select * from tb_catalog where CatalogName = #{catalogId}
+    <select id="findCatalogByName" parameterType="String" resultMap="CatalogMap">
+        select * from tb_catalog where CatalogName = #{catalogName}
     </select>
 
     <resultMap id="CatalogMap" type="Catalog">

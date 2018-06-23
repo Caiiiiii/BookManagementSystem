@@ -28,7 +28,7 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public Catalog findCatalogByName(String catalogName) {
+    public List<Catalog> findCatalogByName(String catalogName) {
         return this.catalogDao.findCatalogByName(catalogName);
     }
 
