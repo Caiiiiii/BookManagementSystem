@@ -20,7 +20,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void ChangeStatus(Integer BookId) {
-         this.bookDao.ChangeStatus(BookId);
+    public void ChangeStatusToYes(Integer BookId) {
+         this.bookDao.ChangeStatusToYes(BookId);
+    }
+
+    @Override
+    public void ChangeStatusToNo(Integer BookId) {
+        this.bookDao.ChangeStatusToNo(BookId);
     }
 }

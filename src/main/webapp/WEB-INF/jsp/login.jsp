@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <title>图书馆</title>
     <link rel="stylesheet" href="../../css/mdui.css">
+    <link rel="stylesheet" href="../../css/bms.css">
     <script src="../../js/mdui.js"></script>
     <script src="../../js/jquery-3.3.1.js"></script>
 </head>
@@ -48,24 +49,6 @@
 </form>
 
 </body>
-    <style type="text/css">
-        .div-layout{
-            width: 100%;
-            max-width: 700px;
-            margin: auto;
-            position: relative;
-        }
-        .login-button{
-
-           position: relative;
-           top: 20px;
-            text-align: center;
-        }
-        .login-button-width{
-            width: 150px;
-            height: 50px;
-        }
-    </style>
 
     <script type="text/javascript">
         $("#submitButton").click(function () {
@@ -88,14 +71,19 @@
                 dataType:"json",
                 data:{readerPhone:readerPhone,readerPassword:readerPassword},
                 success:function (result) {
-                if (result.index == '1'){
+                    console.log(result.index );
+                    if (result.index == '1'){
+                    console.log("1");
                     mdui.snackbar({
                         message: '登录成功',
                         position: 'bottom'
                     });
                     window.location.href = result.url;
                 }
-                else if (result.index == '2'){}
+                else if (result.index == '2'){
+                  window.location.href = "${pageContext.request.contextPath}/toAdmin";
+                    console.log("2");
+                }
                 else if (result.index == '3'){
                     mdui.snackbar({
                         message: '账号或密码错误',

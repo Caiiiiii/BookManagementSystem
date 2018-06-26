@@ -3,7 +3,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="dao.OrderDao">
     <insert id="createOrder" parameterType="Order">
-        insert into tb_order(BookId,ReaderPhone,BookLendTime,BookReturnTime,CatalogName)
-        values (#{BookId},#{ReaderPhone},#{BookLendTime},#{BookReturnTime},#{CatalogName})
+        insert into tb_order(BookId,ReaderPhone,BookLendTime,BookReturnTime,CatalogName,CatalogId)
+        values (#{BookId},#{ReaderPhone},#{BookLendTime},#{BookReturnTime},#{CatalogName},#{CatalogId})
     </insert>
+
+    <delete id="deleteOrder" parameterType="Integer">
+        delete from tb_order where orderId = #{orderId}
+    </delete>
+
+    <select id="findCatalogIdByOrderId" parameterType="Integer">
+        select CatalogId from tb_order where OrderId = #{orderId}
+    </select>
+
+    <select id="findOrderByOrderId" parameterType="Integer" resultType="Order">
+        select * from tb_order where OrderId = #{orderId}
+    </select>
+
+    <update id="applyReturnBook" parameterType="Integer">
+        update tb_order set applyReturn = 1 where orderId = #{orderId}
+    </update>
 </mapper>

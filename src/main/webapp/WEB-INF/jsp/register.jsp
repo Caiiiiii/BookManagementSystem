@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <title>图书馆</title>
     <link rel="stylesheet" href="../../css/mdui.css">
+    <link rel="stylesheet" href="../../css/bms.css">
     <script src="../../js/mdui.js"></script>
     <script src="../../js/jquery-3.3.1.js"></script>
 </head>
@@ -120,23 +121,5 @@
 
 </script>
 
-<style type="text/css">
-    .div-layout{
-        width: 100%;
-        max-width: 700px;
-        margin: auto;
-        position: relative;
-    }
-    .register-button{
-
-        position: relative;
-        top: 20px;
-        text-align: center;
-    }
-    .register-button-width{
-        width: 150px;
-        height: 50px;
-    }
-</style>
 </html>
 

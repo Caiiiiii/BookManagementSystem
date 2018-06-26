@@ -3,11 +3,13 @@ package model;
 public class Order {
     private  Integer OrderId;
     private Integer BookId;
+    private Integer CatalogId;
     private String CatalogName;
     private Integer ReaderPhone;
     private String BookLendTime;
     private String BookReturnTime;
     private String isAdopt;
+    private Integer applyReturn;
 
     public Integer getOrderId() {
         return OrderId;
@@ -49,12 +51,12 @@ public class Order {
         BookReturnTime = bookReturnTime;
     }
 
-    public String getCatalogName() {
-        return CatalogName;
+    public Integer getCatalogId() {
+        return CatalogId;
     }
 
-    public void setCatalogName(String catalogName) {
-        CatalogName = catalogName;
+    public void setCatalogId(Integer catalogId) {
+        CatalogId = catalogId;
     }
 
     public String getIsAdopt() {
@@ -63,5 +65,21 @@ public class Order {
 
     public void setIsAdopt(String isAdopt) {
         this.isAdopt = isAdopt;
+    }
+
+    public Integer getApplyReturn() {
+        return applyReturn;
+    }
+
+    public void setApplyReturn(Integer applyReturn) {
+        this.applyReturn = applyReturn;
+    }
+
+    public String getCatalogName() {
+        return CatalogName;
+    }
+
+    public void setCatalogName(String catalogName) {
+        CatalogName = catalogName;
     }
 }

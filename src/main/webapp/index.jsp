@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>图书馆</title>
     <link rel="stylesheet" href="css/mdui.css">
+    <link rel="stylesheet" href="css/bms.css">
     <script src="js/mdui.js"></script>
     <script src="js/jquery-3.3.1.js"></script>
 </head>
@@ -30,7 +31,7 @@
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">more_vert</i></a>-->
     </div>
 </div>
-<div class="mdui-container main-layout">
+<div class="mdui-container main-layout-index">
 
         <form action="searchResults.jsp" method="get">
             <div class="mdui-container mdui-valign" style="height: 200px;">
@@ -54,41 +55,6 @@
 
 </script>
 
-<style type="text/css">
-    .main-layout{
-        width: 100%;
-        max-width: 700px;
-        margin: auto;
-        position: relative;
-    }
-    .title-text{
-       position: absolute;
-       top: 35px;
-    }
-    .title-input{
-        width: 500px;
-    }
-    .loginUpSize{
-        width: 70px;
-        position: relative;
-
-    }
-    .loginUpDisplay{
-        display: none;
-    }
-    .iconsPosition{
-        position: absolute;
-        float: left;
-        top:12px;
-    }
-    .loginUpTextPosition{
-        position: relative;
-        left: 25px;
-
-    }
-
-
-</style>
 
 <script type="text/javascript">
     // $("searchSubmit").click(function (){

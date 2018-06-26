@@ -48,7 +48,7 @@ public class LoginController {
         //判断用户是否存在或者密码是否正确
         if(reader != null && reader.getReaderPassword().equals(saltPassword)){
             //跳转到普通用户界面
-            if(reader.getReaderLevel() == 2){
+            if(reader.getReaderLevel().equals(2)){
              //session中添加reader信息
              session.setAttribute("READERPHONE",readerPhone);
              session.setAttribute("READERNAME",reader.getReaderName());
@@ -58,15 +58,22 @@ public class LoginController {
              return jo;
             }
             //跳转到管理员页面
-            else if (reader.getReaderLevel() == 1){
-            session.setAttribute("READER",reader);
+            else if (reader.getReaderLevel().equals(1)){
+                session.setAttribute("READERPHONE",readerPhone);
+                session.setAttribute("READERNAME",reader.getReaderName());
             jo.put("index",2);
-            return null;
+            return jo;
             }
 
         }
         //index 为3的时候 ‘账号或密码错误’;
         jo.put("index",3);
         return jo;
+    }
+
+    @RequestMapping("/toAdmin")
+    public String toAdmin(){
+        System.out.println("去admin了吗" );
+        return "WEB-INF/jsp/admin";
     }
 }

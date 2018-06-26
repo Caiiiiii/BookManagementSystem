@@ -11,8 +11,10 @@
     <meta charset="UTF-8">
     <title>图书馆</title>
     <link rel="stylesheet" href="../../css/mdui.css">
+    <link rel="stylesheet" href="../../css/bms.css">
     <script src="../../js/mdui.js"></script>
     <script src="../../js/jquery-3.3.1.js"></script>
+
 </head>
 <body>
 
@@ -45,6 +47,7 @@
             <td>借阅时间</td>
             <td>应归还时间</td>
             <td>是否通过允许</td>
+            <td>操作</td>
         </tr>
 
     </table>
@@ -73,11 +76,36 @@
                     data:{readerPhone:readerPhone},
                     success:function (data) {
                         for(var i=0; i<data.length;i++){
-                            console.log(data[i].orderId);
-                            var res = "<tr><td>"+data[i].orderId+"</td><td>"+data[i].bookId+"</td>" +
+                            // console.log(data[i].orderId);
+                            var buttonText = null;
+
+                            if (data[i].applyReturn == "1"){
+                                buttonText = "待处理";
+
+                                var cancelButton = "<button class='mdui-btn mdui-btn-raised'  disabled " +
+                                    "value = "+data[i].orderId+">"+buttonText+"</button>"
+                            } else{
+                                if (data[i].isAdopt == "是"){
+                                    buttonText = "归还";
+
+                                    var cancelButton = "<button class='mdui-btn mdui-btn-raised' onclick='returnBook(this)' " +
+                                        "value = "+data[i].orderId+">"+buttonText+"</button>"
+                                }
+                                else if (data[i].isAdopt == "否"){
+                                    buttonText = "取消";
+
+                                    var cancelButton = "<button class='mdui-btn mdui-btn-raised' onclick='returnBook(this)' " +
+                                        "value = "+data[i].orderId+">"+buttonText+"</button>"
+                                }
+                            }
+
+                            var res = "<tr><td>"+data[i].orderId+"</td>" +
+                                "<td>"+data[i].bookId+"</td>" +
                                 "<td>"+data[i].catalogName+"</td>" +
                                 "<td>"+data[i].bookLendTime+"</td>" +
-                                "<td>"+data[i].bookReturnTime+"</td><td>"+data[i].isAdopt+"</td></tr>";
+                                "<td>"+data[i].bookReturnTime+"</td>" +
+                                "<td>"+data[i].isAdopt+"</td>" +
+                                "<td>"+cancelButton+"</td></tr>";
 
                             $("#resultTable").append(res);
                         }
@@ -88,6 +116,33 @@
 
     })
 
+
+    function returnBook(data) {
+       var orderId = data.value;
+       console.log(orderId);
+       $.ajax({
+           type:'GET',
+           url:'/applyReturnBook',
+           data:{orderId:orderId},
+           success:function (data) {
+               if (data.index == "1"){
+                   location.reload();
+               }else if(data.index == "2"){
+                   $.ajax({
+                       type:'GET',
+                       url:'/cancelOrder',
+                       data:{orderId:orderId},
+                       success:function (data) {
+                           if (data.index == "1"){
+                               location.reload();
+                           }
+                       }
+                   })
+               }
+           }
+       })
+
+    }
 
     // $.ajax({
     //     type:'POST',
@@ -150,31 +205,4 @@
     })
 
 </script>
-<style type="text/css">
-    .main-layout{
-        top: 40px;
-        width: 100%;
-        max-width: 1200px;
-        margin: auto;
-        position: relative;
-    }
-    .loginUpSize{
-        width: 70px;
-        position: relative;
-
-    }
-    .loginUpDisplay{
-        display: block;
-    }
-    .iconsPosition{
-        position: absolute;
-        float: left;
-        top:12px;
-    }
-    .loginUpTextPosition{
-        position: relative;
-        left: 25px;
-
-    }
-</style>
 </html>

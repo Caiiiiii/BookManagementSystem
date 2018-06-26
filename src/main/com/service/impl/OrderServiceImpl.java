@@ -18,4 +18,24 @@ public class OrderServiceImpl implements OrderService {
     public boolean createOrder(Order order) {
         return this.orderDao.createOrder(order);
     }
+
+    @Override
+    public void deleteOrder(Integer orderId) {
+         this.orderDao.deleteOrder(orderId);
+    }
+
+    @Override
+    public Integer findCatalogIdByOrderId(Integer orderId) {
+        return this.orderDao.findCatalogIdByOrderId(orderId);
+    }
+
+    @Override
+    public Order findOrderByOrderId(Integer orderId) {
+        return this.orderDao.findOrderByOrderId(orderId);
+    }
+
+    @Override
+    public void applyReturnBook(Integer orderId) {
+        this.orderDao.applyReturnBook(orderId);
+    }
 }

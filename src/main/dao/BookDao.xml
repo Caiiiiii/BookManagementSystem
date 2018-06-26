@@ -7,7 +7,11 @@
         select BookId from tb_book  where CatalogId = #{CatalogId} and BookBorrowStatus = 0 limit 1
     </select>
 
-    <update id="ChangeStatus" parameterType="Integer">
+    <update id="ChangeStatusToYes" parameterType="Integer">
         update tb_book set BookBorrowStatus = 1 where BookId =#{BookId}
+    </update>
+
+    <update id="ChangeStatusToNo" parameterType="Integer">
+        update tb_book set BookBorrowStatus = 0 where BookId =#{BookId}
     </update>
 </mapper>

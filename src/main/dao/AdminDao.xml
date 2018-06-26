@@ -4,16 +4,35 @@
     <mapper namespace="dao.AdminDao">
         <resultMap id="BaseResultMap" type="Order">
          <result column="OrderId" property="OrderId"></result>
-         <result column="BookId" property="BookId"></result>
-         <result column="CatalogName" property="catalogName"></result>
          <result column="BookLendTime" property="BookLendTime"></result>
          <result column="BookReturnTime" property="BookReturnTime"></result>
          <result column="isAdopt" property="isAdopt"></result>
+            <result column="BookId" property="BookId"></result>
+            <result column="CatalogName" property="catalogName"></result>
     </resultMap>
+
     <select id="findOrdersByPhone" parameterType="Integer" resultMap="BaseResultMap">
         select * from tb_order where ReaderPhone = #{readerPhone}
     </select>
     <update id="adpotOrder" parameterType="Integer">
         update tb_order set isAdopt = 1 where OrderId = #{orderId}
     </update>
+
+
+    <select id="findOrdersNoAdopt" resultMap="BaseResultMap">
+        select o.* r.ReaderName from tb_order o, tb_reader r where isAdopt = '否' and o.ReaderPhone = r.ReaderPhone
+    </select>
+
+
+    <resultMap id="BaseResultMap1" type="Order">
+        <result column="OrderId" property="OrderId"></result>
+        <result column="BookLendTime" property="BookLendTime"></result>
+        <result column="BookReturnTime" property="BookReturnTime"></result>
+        <result column="isAdopt" property="isAdopt"></result>
+        <result column="BookId" property="BookId"></result>
+        <result column="CatalogName" property="catalogName"></result>
+        <association property="book" javaType="Book">
+            <id property="bookId" column="BookId"></id>
+        </association>
+    </resultMap>
 </mapper>

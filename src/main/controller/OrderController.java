@@ -1,5 +1,6 @@
 package controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.service.AdminService;
 import com.service.BookService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -65,8 +67,9 @@ public class OrderController {
             //数据填入
             order.setReaderPhone(readerPhone);
             order.setBookId(bookId);
+            order.setCatalogId(CatalogId);
             order.setCatalogName(CatalogName);
-            System.out.println(CatalogName);
+//            System.out.println(CatalogName);
             order.setBookLendTime(beforeTime);
             order.setBookReturnTime(afterTime);
             orderService.createOrder(order);
@@ -77,7 +80,7 @@ public class OrderController {
             catalogService.ChangeCanLoanNum(CatalogId,newNum);
 
             //修改图书状态
-            bookService.ChangeStatus(bookId);
+            bookService.ChangeStatusToYes(bookId);
             //填入index为1,表示借阅成功
             jo.put("index",1);
             return jo;
@@ -91,6 +94,54 @@ public class OrderController {
     public String AdoptOrder(@RequestParam("OrderId") Integer orderId){
         adminService.adpotOrder(orderId);
         return "WEB-INF/jsp/success";
+    }
+
+    @RequestMapping(value = "/applyReturnBook",method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject applyReturnBook(Integer orderId){
+        JSONObject jo = new JSONObject();
+        Order order = orderService.findOrderByOrderId(orderId);
+        System.out.println(order.getIsAdopt());
+        if (order.getIsAdopt().equals("是")) {
+            orderService.applyReturnBook(orderId);
+            jo.put("index", 1);
+        }else if (order.getIsAdopt().equals("否")){
+            jo.put("index",2);
+        }
+        return jo;
+    }
+
+    @RequestMapping(value = "/cancelOrder",method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject cancelOrder(Integer orderId){
+
+        JSONObject jo = new JSONObject();
+          //删除订单
+        Order order = orderService.findOrderByOrderId(orderId);
+        Integer CatalogId = order.getCatalogId();
+        Integer BookId = order.getBookId();
+
+        //修改目录的图书数量
+        int newNum = catalogService.findCanLoanNumByCatalogId(CatalogId) + 1;
+        catalogService.ChangeCanLoanNum(CatalogId,newNum);
+
+        //修改图书状态
+        bookService.ChangeStatusToNo(BookId);
+
+        //删除订单
+        orderService.deleteOrder(orderId);
+
+        jo.put("index",1);
+
+         return jo;
+    }
+
+
+    @RequestMapping(value = "/findOrdersNoAdopt",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Order> findOrdersNoAdopt(){
+        List<Order> orders = adminService.findOrdersNoAdopt();
+        return orders;
     }
 
 }

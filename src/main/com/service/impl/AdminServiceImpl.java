@@ -27,4 +27,9 @@ public class AdminServiceImpl implements AdminService {
     public void adpotOrder(Integer orderId) {
         this.adminDao.adpotOrder(orderId);
     }
+
+    @Override
+    public List<Order> findOrdersNoAdopt() {
+        return this.adminDao.findOrdersNoAdopt();
+    }
 }
