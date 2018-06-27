@@ -19,8 +19,8 @@
 
 <div class="mdui-appbar">
     <div class="mdui-toolbar mdui-color-grey">
-        <button onclick="confirmButton()" class="mdui-typo-title mdui-text-color-white">确认列表</button>
-        <a href="index.jsp" class="mdui-typo-title mdui-text-color-white">归还列表</a>
+        <a href="javascript:void(0);" onclick="confirmButton()" class="mdui-typo-title mdui-text-color-white">确认列表</a>
+        <a href="javascript:void(0);" onclick="returnButton()" class="mdui-typo-title mdui-text-color-white">归还列表</a>
 
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
@@ -44,19 +44,30 @@
             <td>订单号</td>
             <td>书本号</td>
             <td>书名</td>
+            <td>借阅人</td>
             <td>借阅时间</td>
             <td>应归还时间</td>
-            <td>借阅人</td>
             <td>是否允许</td>
         </tr>
 
     </table>
 </div>
 
-<form action="${pageContext.request.contextPath}/findOrdersByPhone" method="get">
-    查询你要借阅的书籍：  <input type="text" name="readerPhone"><br>
-    <input type="submit" value="查询">
-</form>
+<div  class="mdui-container main-layout confirmTabel" id="returnTabelDiv">
+    <table id="returnTabel" width="100%" class="mdui-table mdui-table-hoverable">
+        <tr>
+            <td>订单号</td>
+            <td>书本号</td>
+            <td>书名</td>
+            <td>借阅人</td>
+            <td>借阅时间</td>
+            <td>应归还时间</td>
+            <td>是否归还</td>
+        </tr>
+
+    </table>
+</div>
+
 </body>
 
 <script type="text/javascript">
@@ -98,6 +109,8 @@
             type:'GET',
             url:'/findOrdersNoAdopt',
             success:function (data) {
+                $("#confirmTabel").empty();
+                $("#returnTabelDiv").css("display","none");
                 $("#confirmTabelDiv").css("display","block");
                 for(var i=0; i<data.length;i++){
                 var TwoButton =" <button class='mdui-btn mdui-btn-raised' onclick='confirmSubmit(this)'" +
@@ -108,9 +121,9 @@
                     var res = "<tr><td>"+data[i].orderId+"</td>" +
                         "<td>"+data[i].bookId+"</td>" +
                         "<td>"+data[i].catalogName+"</td>" +
+                        "<td>"+data[i].readerName+"</td>" +
                         "<td>"+data[i].bookLendTime+"</td>" +
                         "<td>"+data[i].bookReturnTime+"</td>" +
-                        "<td>"+data[i].isAdopt+"</td>" +
                         "<td>"+TwoButton+"</td></tr>";
 
                     $("#confirmTabel").append(res);
@@ -119,13 +132,71 @@
         })
     }
 
+    function returnButton() {
+        $.ajax({
+            type:'GET',
+            url:'/findOrdersNoReturn',
+            success:function (data) {
+                $("#returnTabel").empty();
+                $("#confirmTabelDiv").css("display","none");
+                $("#returnTabelDiv").css("display","block");
+                for(var i=0; i<data.length;i++){
+                    var TwoButton =" <button class='mdui-btn mdui-btn-raised' onclick='returnSubmit(this)'" +
+                        "value = "+data[i].orderId+">确认归还</button>" ;
+
+                    var res = "<tr><td>"+data[i].orderId+"</td>" +
+                        "<td>"+data[i].bookId+"</td>" +
+                        "<td>"+data[i].catalogName+"</td>" +
+                        "<td>"+data[i].readerName+"</td>" +
+                        "<td>"+data[i].bookLendTime+"</td>" +
+                        "<td>"+data[i].bookReturnTime+"</td>" +
+                        "<td>"+TwoButton+"</td></tr>";
+
+                    $("#returnTabel").append(res);
+                }
+            }
+        })
+    }
 
     function confirmSubmit(data) {
            var orderId = data.value;
+           $.ajax({
+               type:'GET',
+               url:'/confirmAdopt',
+               data:{orderId:orderId},
+               success:function (data) {
+                     if (data.index == '1'){
+                         confirmButton();
+                     }
+               }
+           })
     }
 
     function refuseSubmit(data) {
         var orderId = data.value;
+        $.ajax({
+            type:'GET',
+            url:'/cancelOrder',
+            data:{orderId:orderId},
+            success:function (data) {
+                if (data.index == '1'){
+                 confirmButton();
+                }
+            }
+        })
+    }
+    function returnSubmit(data) {
+        var orderId = data.value;
+        $.ajax({
+            type:'GET',
+            url:'/cancelOrder',
+            data:{orderId:orderId},
+            success:function (data) {
+                if (data.index == '1'){
+                    returnButton();
+                }
+            }
+        })
     }
 </script>
 

@@ -6,6 +6,7 @@ public class Order {
     private Integer CatalogId;
     private String CatalogName;
     private Integer ReaderPhone;
+    private String ReaderName;
     private String BookLendTime;
     private String BookReturnTime;
     private String isAdopt;
@@ -81,5 +82,13 @@ public class Order {
 
     public void setCatalogName(String catalogName) {
         CatalogName = catalogName;
+    }
+
+    public String getReaderName() {
+        return ReaderName;
+    }
+
+    public void setReaderName(String readerName) {
+        ReaderName = readerName;
     }
 }

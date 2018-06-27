@@ -144,4 +144,19 @@ public class OrderController {
         return orders;
     }
 
+    @RequestMapping(value = "/findOrdersNoReturn",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Order> findOrdersNoReturn(){
+        List<Order> orders = adminService.findOrdersNoReturn();
+        return orders;
+    }
+
+    @RequestMapping(value = "/confirmAdopt",method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject confirmAdopt(Integer orderId){
+        adminService.adpotOrder(orderId);
+        JSONObject jo = new JSONObject();
+        jo.put("index",1);
+        return jo;
+    }
 }

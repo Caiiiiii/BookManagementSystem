@@ -32,4 +32,9 @@ public class AdminServiceImpl implements AdminService {
     public List<Order> findOrdersNoAdopt() {
         return this.adminDao.findOrdersNoAdopt();
     }
+
+    @Override
+    public List<Order> findOrdersNoReturn() {
+        return this.adminDao.findOrdersNoReturn();
+    }
 }

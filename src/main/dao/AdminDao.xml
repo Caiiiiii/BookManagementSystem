@@ -9,18 +9,23 @@
          <result column="isAdopt" property="isAdopt"></result>
             <result column="BookId" property="BookId"></result>
             <result column="CatalogName" property="catalogName"></result>
+            <result column="ReaderName" property="ReaderName"></result>
     </resultMap>
 
     <select id="findOrdersByPhone" parameterType="Integer" resultMap="BaseResultMap">
         select * from tb_order where ReaderPhone = #{readerPhone}
     </select>
     <update id="adpotOrder" parameterType="Integer">
-        update tb_order set isAdopt = 1 where OrderId = #{orderId}
+        update tb_order set isAdopt = '是' where OrderId = #{orderId}
     </update>
 
 
     <select id="findOrdersNoAdopt" resultMap="BaseResultMap">
-        select o.* r.ReaderName from tb_order o, tb_reader r where isAdopt = '否' and o.ReaderPhone = r.ReaderPhone
+        select o.*, r.ReaderName from tb_order o, tb_reader r where isAdopt = '否' and o.ReaderPhone = r.ReaderPhone
+    </select>
+
+    <select id="findOrdersNoReturn" resultMap="BaseResultMap">
+      select o.*, r.ReaderName from tb_order o, tb_reader r where applyReturn = 1 and o.ReaderPhone = r.ReaderPhone
     </select>
 
 

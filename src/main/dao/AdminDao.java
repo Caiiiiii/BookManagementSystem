@@ -9,4 +9,6 @@ public interface AdminDao {
     public List<Order> findOrdersByPhone(Integer readerPhone);
     public void adpotOrder(Integer orderId);
     public List<Order> findOrdersNoAdopt();
+    public List<Order> findOrdersNoReturn();
+    public void confirmAdopt(Integer orderId);
 }
