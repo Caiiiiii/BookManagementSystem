@@ -49,7 +49,8 @@
 </div>
 </body>
 
-<div  class="mdui-container main-layout">
+<div  class="mdui-container main-layout-stuInfo">
+    <h4>学生基本信息</h4>
     <table id="ReaderTable" width="100%" class="mdui-table mdui-table-hoverable">
         <tr>
             <td>姓名</td>
@@ -61,6 +62,7 @@
 
 
 <div  class="mdui-container main-layout stuInfoRestabel">
+    <h4>订单信息</h4>
     <table id="resultTable" width="100%" class="mdui-table mdui-table-hoverable">
         <tr>
             <td>订单号</td>
@@ -95,7 +97,7 @@
 
         $.ajax({
             type:'POST',
-            url:'/findOrdersByPhone',
+            url:'/findOrdersByPhoneAndAdopt',
             data:{readerPhone:readerPhone},
             success:function (data) {
                 for(var i=0; i<data.length;i++){
@@ -111,12 +113,52 @@
         })
     })
 
+
+    $("#loginUp").click(function () {
+        $.ajax({
+            type:'GET',
+            url:'/loginUp',
+            success:function (data) {
+                if (data.index == "1"){
+                    //成功了再调用一次ajax刷新页面
+                    $.ajax({
+                        type:'GET',
+                        url:'/findReaderPhoneBySession',
+                        success:function (data) {
+                            console.log(data);
+                            if(data == "" || data == null)
+                            {
+                                $("#readerInfo").html("请登录");
+                                $("#loginUp").css("display","none");
+                                mdui.snackbar({
+                                    message: '您已登出',
+                                    position: 'bottom'
+                                });
+                                window.location.href="index.jsp";
+                            }
+                        },
+                        error:function () {
+                            alert("失败了");
+                        }
+                    })
+
+                }
+            }
+        })
+    })
 </script>
 
 <style type="text/css">
     .stuInfoRestabel{
         position: relative;
         top:50px;
+    }
+    .main-layout-stuInfo{
+        top: 40px;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        position: relative;
     }
 </style>
 </html>

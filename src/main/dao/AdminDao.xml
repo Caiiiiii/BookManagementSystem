@@ -15,6 +15,10 @@
     <select id="findOrdersByPhone" parameterType="Integer" resultMap="BaseResultMap">
         select * from tb_order where ReaderPhone = #{readerPhone}
     </select>
+
+    <select id="findOrdersByPhoneAndAdopt" parameterType="Integer" resultMap="BaseResultMap">
+        select * from tb_order where ReaderPhone = #{readerPhone} and isAdopt = '是'
+    </select>
     <update id="adpotOrder" parameterType="Integer">
         update tb_order set isAdopt = '是' where OrderId = #{orderId}
     </update>

@@ -8,7 +8,7 @@
     </select>
 
     <select id="findReaderInfoByPhone" parameterType="Integer" resultMap="readerMap">
-        select r.readerPhone,r.readerName,r.readerSex from tb_reader r where ReaderPhone = #{readerPhone}
+        select r.readerPhone,r.readerName,r.readerSex from tb_reader r  where r.ReaderPhone = #{readerPhone}
     </select>
     <resultMap id="readerMap" type="Reader">
         <result column="readerPhone" property="ReaderPhone"></result>

@@ -159,4 +159,11 @@ public class OrderController {
         jo.put("index",1);
         return jo;
     }
+
+    @RequestMapping(value = "/findOrdersByPhoneAndAdopt",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Order> findOrdersByPhoneAndAdopt(Integer readerPhone){
+        List<Order> orders = adminService.findOrdersByPhoneAndAdopt(readerPhone);
+        return orders;
+    }
 }

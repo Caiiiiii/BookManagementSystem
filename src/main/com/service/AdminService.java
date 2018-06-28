@@ -10,4 +10,5 @@ public interface AdminService {
     public void adpotOrder(Integer orderId);
     public List<Order> findOrdersNoAdopt();
     public List<Order> findOrdersNoReturn();
+    public List<Order> findOrdersByPhoneAndAdopt(Integer readerPhone);
 }

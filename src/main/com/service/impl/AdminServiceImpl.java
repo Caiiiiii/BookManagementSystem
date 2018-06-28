@@ -37,4 +37,9 @@ public class AdminServiceImpl implements AdminService {
     public List<Order> findOrdersNoReturn() {
         return this.adminDao.findOrdersNoReturn();
     }
+
+    @Override
+    public List<Order> findOrdersByPhoneAndAdopt(Integer readerPhone) {
+        return this.adminDao.findOrdersByPhoneAndAdopt(readerPhone);
+    }
 }

@@ -11,4 +11,5 @@ public interface AdminDao {
     public List<Order> findOrdersNoAdopt();
     public List<Order> findOrdersNoReturn();
     public void confirmAdopt(Integer orderId);
+    public List<Order> findOrdersByPhoneAndAdopt(Integer readerPhone);
 }
