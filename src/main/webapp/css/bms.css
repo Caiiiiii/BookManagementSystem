@@ -121,3 +121,10 @@
     position: relative;
     top:50px;
 }
+. main-layout-stuInfo{
+    top: 40px;
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    position: relative;
+}
