@@ -4,18 +4,22 @@
 <mapper namespace="dao.ReaderDao">
      <!--通过电话号码查询用户信息-->
     <select id="findReaderByPhone" parameterType="Integer" resultMap="readerMap">
-        select * from tb_reader where ReaderPhone = #{readerPhone}
+        select * from tb_reader r where ReaderPhone = #{readerPhone}
+    </select>
+
+    <select id="findReaderInfoByPhone" parameterType="Integer" resultMap="readerMap">
+        select r.readerPhone,r.readerName,r.readerSex from tb_reader r where ReaderPhone = #{readerPhone}
     </select>
     <resultMap id="readerMap" type="Reader">
         <result column="readerPhone" property="ReaderPhone"></result>
         <result column="readerName" property="ReaderName"></result>
-        <result column="readerHadLoan" property="ReaderHadLoan"></result>
+        <result column="readerSex" property="readerSex"></result>
     </resultMap>
 
     <!--注册用户插入数据-->
     <insert id="readerRegister" parameterType="Reader">
-        insert into tb_reader(ReaderPhone,ReaderName,ReaderPassword)
-         values (#{readerPhone} ,#{readerName} ,#{readerPassword})
+        insert into tb_reader(ReaderPhone,ReaderName,ReaderPassword,ReaderSex)
+         values (#{readerPhone} ,#{readerName} ,#{readerPassword},#{readerSex})
     </insert>
 
     <select id="findReaderInByPhone" parameterType="Integer" resultType="boolean">

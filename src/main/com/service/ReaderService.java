@@ -9,5 +9,6 @@ public interface ReaderService {
     public OrderVo findOrderByPhone (Integer readerPhone);
     public boolean readerRegister (Reader reader);
     public boolean readerLogin(Reader reader);
+    public Reader findReaderInfoByPhone(Integer readerPhone);
 
 }

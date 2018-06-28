@@ -1,7 +1,11 @@
 package controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.service.CatalogService;
+import com.service.ReaderService;
 import model.Catalog;
+import model.Reader;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,9 @@ import java.util.List;
 public class SearchController {
     @Autowired
     private CatalogService catalogService;
+
+    @Autowired
+    private ReaderService readerService;
 
     @RequestMapping("searchBook")
     public String SearchBook(){
@@ -48,6 +55,13 @@ public class SearchController {
 
 //            model.addAttribute("msg","查到该书籍为"+catalog.getCatalogId());
             return null;
+    }
+
+    @RequestMapping(value = "/searchReader",method = RequestMethod.POST)
+    @ResponseBody
+    public Reader SearchReaderByPhone(@RequestParam("readerPhone") Integer readerPhone){
+        Reader reader = readerService.findReaderInfoByPhone(readerPhone);
+        return reader;
     }
 
 

@@ -23,4 +23,6 @@ public interface ReaderDao {
      * */
     public boolean readerLogin(Reader reader);
 
+    public Reader findReaderInfoByPhone(Integer readerPhone);
+
 }

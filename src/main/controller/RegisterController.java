@@ -36,6 +36,7 @@ public class RegisterController {
     @ResponseBody
     public JSONObject register(Reader reader, @RequestParam("readerPhone") Integer readerPhone,
                                @RequestParam("readerName") String readerName,
+                               @RequestParam("readerSex") Integer readerSex,
                                @RequestParam("readerPassword") String readerPassword , HttpSession session){
         //加密密码
         String saltPassword = Md5AddSalt.getMD5WithSalt(readerPassword);
@@ -47,10 +48,17 @@ public class RegisterController {
         //判断该电话号码是否存在
         if (readerService.findReaderByPhone(readerPhone) == null){
 
+            String sex = null;
+            if (readerSex.equals(1)){
+                sex = "男";
+            }else if (readerSex.equals(2)){
+                sex = "女";
+            }
             //填写入数据库
             reader.setReaderPhone(readerPhone);
             reader.setReaderName(readerName);
             reader.setReaderPassword(saltPassword);
+            reader.setReaderSex(sex);
             readerService.readerRegister(reader);
 
             //添加该用户的session

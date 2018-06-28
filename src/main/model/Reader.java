@@ -4,7 +4,7 @@ public class Reader {
     private Integer ReaderPhone;
     private String ReaderName;
     private String ReaderPassword;
-    private Integer ReaderHadLoan;
+    private String ReaderSex;
     private Integer ReaderLevel;
 
     public Integer getReaderPhone() {
@@ -31,19 +31,19 @@ public class Reader {
         ReaderPassword = readerPassword;
     }
 
-    public Integer getReaderHadLoan() {
-        return ReaderHadLoan;
-    }
-
-    public void setReaderHadLoan(Integer readerHadLoan) {
-        ReaderHadLoan = readerHadLoan;
-    }
-
     public Integer getReaderLevel() {
         return ReaderLevel;
     }
 
     public void setReaderLevel(Integer readerLevel) {
         ReaderLevel = readerLevel;
+    }
+
+    public String getReaderSex() {
+        return ReaderSex;
+    }
+
+    public void setReaderSex(String readerSex) {
+        ReaderSex = readerSex;
     }
 }

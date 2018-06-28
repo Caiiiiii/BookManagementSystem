@@ -39,4 +39,9 @@ public class ReaderServiceImpl implements ReaderService {
     public boolean readerLogin(Reader reader) {
         return true;
     }
+
+    @Override
+    public Reader findReaderInfoByPhone(Integer readerPhone) {
+        return this.readerDao.findReaderInfoByPhone(readerPhone);
+    }
 }

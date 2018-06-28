@@ -73,7 +73,11 @@ public class LoginController {
 
     @RequestMapping("/toAdmin")
     public String toAdmin(){
-        System.out.println("去admin了吗" );
         return "WEB-INF/jsp/admin";
+    }
+
+    @RequestMapping("/toStudentInfo")
+    public String toStudentInfo(){
+        return "WEB-INF/jsp/studentInfo";
     }
 }

@@ -1,3 +1,4 @@
+
 .main-layout{
     top: 40px;
     width: 100%;
@@ -29,6 +30,7 @@
     left: 25px;
 
 }
+
 .main-layout-index{
     width: 100%;
     max-width: 700px;
@@ -113,4 +115,9 @@
 .register-button-width{
     width: 150px;
     height: 50px;
+}
+
+.stuInfoRestabel{
+    position: relative;
+    top:50px;
 }

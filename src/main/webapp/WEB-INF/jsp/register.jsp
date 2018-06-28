@@ -42,6 +42,18 @@
             <label class="mdui-textfield-label">姓名</label>
             <input class="mdui-textfield-input" type="text" name="readerName" id="readerName"/>
         </div>
+        <!--<div class="mdui-textfield mdui-textfield-floating-label">-->
+
+            <!--<input class="mdui-textfield-input" type="text" name="readerSex" id="readerSex"/>-->
+        <!--</div>-->
+        <!--<label class="mdui-textfield-label">性别</label>-->
+        <div class="selectPosition">
+        <select class="mdui-select " mdui-select="{position: 'bottom'}" id="readerSex">
+            <option value="0" selected>请选择你的性别</option>
+            <option value="1">男</option>
+            <option value="2">女</option>
+        </select>
+        </div>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">密码</label>
             <input class="mdui-textfield-input" type="password" name="readerPassword" id="readerPassword"/>
@@ -63,6 +75,8 @@
         var password = $("#readerPassword").val();
         var rePassword = $("#readerRePassword").val();
         var readerName = $("#readerName").val();
+        var readerSex = $("#readerSex").val();
+
 
         if (phone == ""){
             mdui.snackbar({
@@ -90,6 +104,14 @@
             return false;
         }
 
+        if (readerSex == '0'){
+            mdui.snackbar({
+                message: '请选择你的性别',
+                position: 'bottom'
+            });
+            return false;
+        }
+
         if (password == "" || rePassword == ""){
             mdui.snackbar({
                 message: '密码不能为空',
@@ -112,7 +134,7 @@
         $.ajax({
             type:'POST',
             url:'/register',
-            data:{readerPhone:phone,readerName:readerName,readerPassword:password},
+            data:{readerPhone:phone,readerName:readerName,readerSex:readerSex,readerPassword:password},
             success:function (data) {
                window.location.href = data.url;
             }
@@ -120,6 +142,13 @@
     })
 
 </script>
+
+<style type="text/css">
+    .selectPosition{
+        position: relative;
+        top: 15px;
+    }
+</style>
 
 </html>
 

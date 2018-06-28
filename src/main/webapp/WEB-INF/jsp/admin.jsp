@@ -21,6 +21,7 @@
     <div class="mdui-toolbar mdui-color-grey">
         <a href="javascript:void(0);" onclick="confirmButton()" class="mdui-typo-title mdui-text-color-white">确认列表</a>
         <a href="javascript:void(0);" onclick="returnButton()" class="mdui-typo-title mdui-text-color-white">归还列表</a>
+        <a href="/toStudentInfo" class="mdui-typo-title mdui-text-color-white">查询学生信息</a>
 
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
