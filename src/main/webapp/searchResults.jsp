@@ -62,6 +62,8 @@
         <td>图书ID</td>
         <td>图书名称</td>
         <td>图书作者</td>
+        <td>出版社</td>
+        <td>出版时间</td>
         <td>操作</td>
     </tr>
 </table>
@@ -119,6 +121,8 @@
                 var button =" <button class='mdui-btn mdui-btn-raised' onclick='addCart(this)' value= '"+data[i].catalogId+"'  id= '"+data[i].catalogId+"'>添加到购物车</button>";
                 var res = "<tr><td>"+data[i].catalogId+"</td><td>"+data[i].catalogName
                            +"</td><td>"+data[i].catalogAuthor+"</td> " +
+                    "<td>"+data[i].catalogPublisher+"</td> " +
+                    "<td>"+data[i].catalogPublishTime+"</td> " +
                            "<td>"+button+"</td></tr>";
                 $("#resultTable").append(res);
 
@@ -210,9 +214,15 @@
                         datatype:'json',
                         success:function (data) {
                             if (data.index == '1'){
-                                alert("success");
+                                mdui.snackbar({
+                                    message: '您已登出',
+                                    position: 'bottom'
+                                });
                             } else if (data.index == '3'){
-                                alert("false");
+                                mdui.snackbar({
+                                    message: '图书已被借完',
+                                    position: 'bottom'
+                                });
                             }
                         }
                     })
