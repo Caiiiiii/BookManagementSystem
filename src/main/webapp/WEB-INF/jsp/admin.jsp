@@ -19,12 +19,12 @@
 
 <div class="mdui-appbar">
     <div class="mdui-toolbar mdui-color-grey">
-        <a href="javascript:void(0);" onclick="confirmButton()" class="mdui-typo-title mdui-text-color-white">确认列表</a>
+        <a href="javascript:void(0);" onclick="confirmButton()" class="mdui-typo-title mdui-text-color-white">申请列表</a>
         <a href="javascript:void(0);" onclick="returnButton()" class="mdui-typo-title mdui-text-color-white">归还列表</a>
         <a href="/toStudentInfo" class="mdui-typo-title mdui-text-color-white">查询学生信息</a>
 
         <div class="mdui-toolbar-spacer"></div>
-        <div class="mdui-typo-title mdui-text-color-white" id="readerInfo"></div>
+        <div class="mdui-typo-title mdui-text-color-white" id="readerInfo">管理员</div>
         <!--退出按钮-->
         <div id="loginUp" class=" mdui-ripple loginUpDisplay loginUpSize">
             <i class="mdui-icon material-icons iconsPosition">power_settings_new</i>
@@ -40,6 +40,7 @@
 </div>
 
 <div  class="mdui-container main-layout confirmTabel" id="confirmTabelDiv">
+    <h1 style="text-align: center">借书申请名单</h1>
     <table id="confirmTabel" width="100%" class="mdui-table mdui-table-hoverable">
         <tr>
             <td>订单号</td>
@@ -55,6 +56,7 @@
 </div>
 
 <div  class="mdui-container main-layout confirmTabel" id="returnTabelDiv">
+    <h1 style="text-align: center">归还申请名单</h1>
     <table id="returnTabel" width="100%" class="mdui-table mdui-table-hoverable">
         <tr>
             <td>订单号</td>
@@ -167,6 +169,11 @@
                data:{orderId:orderId},
                success:function (data) {
                      if (data.index == '1'){
+                         mdui.snackbar({
+                             message: '确认成功',
+                             position: 'bottom'
+                         });
+                         setTimeout(1000);
                          confirmButton();
                      }
                }
@@ -182,6 +189,11 @@
             success:function (data) {
                 if (data.index == '1'){
                  confirmButton();
+                    mdui.snackbar({
+                        message: '拒绝成功',
+                        position: 'bottom'
+                    });
+                    setTimeout(1000);
                 }
             }
         })
@@ -194,6 +206,11 @@
             data:{orderId:orderId},
             success:function (data) {
                 if (data.index == '1'){
+                    mdui.snackbar({
+                        message: '归还成功',
+                        position: 'bottom'
+                    });
+                    setTimeout(1000);
                     returnButton();
                 }
             }

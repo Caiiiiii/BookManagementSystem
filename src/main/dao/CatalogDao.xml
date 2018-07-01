@@ -7,7 +7,7 @@
     </select>
 
     <select id="findCatalogById" parameterType="Integer" resultType="Catalog">
-        select * from tb_catalog where CatalogId = #{catalogId}
+        select * from tb_catalog where CatalogId like "%"#{catalogId}"%"
     </select>
 
     <select id="findCatalogByName" parameterType="String" resultMap="CatalogMap">
@@ -22,7 +22,7 @@
         <result column="CatalogCanLoan" property="CatalogCanLoan"></result>
     </resultMap>
     <select id="findBookByAuthor" parameterType="String" resultMap="CatalogMap">
-        select * from tb_catalog where CatalogAuthor = #{catalogAuthor}
+        select * from tb_catalog where CatalogAuthor like "%"#{catalogAuthor}"%"
     </select>
 
     <!--<parameterMap id="ChangeCanLoanNumMap" type="Integer">-->

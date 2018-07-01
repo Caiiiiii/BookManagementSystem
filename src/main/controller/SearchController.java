@@ -61,7 +61,12 @@ public class SearchController {
     @ResponseBody
     public Reader SearchReaderByPhone(@RequestParam("readerPhone") Integer readerPhone){
         Reader reader = readerService.findReaderInfoByPhone(readerPhone);
-        return reader;
+        if (reader != null){
+            return reader;
+        }else{
+            return null;
+        }
+
     }
 
 

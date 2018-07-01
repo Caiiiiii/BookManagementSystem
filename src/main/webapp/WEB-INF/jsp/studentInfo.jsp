@@ -49,7 +49,7 @@
 </div>
 </body>
 
-<div  class="mdui-container main-layout-stuInfo">
+<div  class="mdui-container main-layout-stuInfo hiddenStyle" id="ReaderTableDiv">
     <h4>学生基本信息</h4>
     <table id="ReaderTable" width="100%" class="mdui-table mdui-table-hoverable">
         <tr>
@@ -59,38 +59,50 @@
         </tr>
     </table>
 </div>
+<h3 class="NoInfoMessage" id="NoInfoMessage">查无此人</h3>
 
-
-<div  class="mdui-container main-layout stuInfoRestabel">
+<div  class="mdui-container main-layout stuInfoRestabel hiddenStyle" id="resultTableDiv">
     <h4>订单信息</h4>
     <table id="resultTable" width="100%" class="mdui-table mdui-table-hoverable">
         <tr>
             <td>订单号</td>
             <td>书本号</td>
             <td>书名</td>
+            <td>作者</td>
+            <td>出版商</td>
+            <td>出版时间</td>
             <td>借阅时间</td>
             <td>应归还时间</td>
         </tr>
-
     </table>
 </div>
+<h3 class="NoInfoMessage" id="NoOrderMessage"></h3>
+
 
 <script type="text/javascript">
     $("#searchbtn").click(function () {
         var readerPhone = $("#ReaderPhone").val();
+
         $.ajax({
             type:'POST',
             url:'/searchReader',
-            dataType:'json',
             data:{readerPhone:readerPhone},
             success:function (data) {
-
-
-
-                var res = "<tr><td>"+data.readerName+"</td>" +
-                    "<td>"+data.readerPhone+"</td>" +
-                    "<td>"+data.readerSex+"</td></tr>";
+                console.log(data);
+                if (data != ""){
+                    $("#ReaderTable  tr:not(:first)").html("");
+                    $("#ReaderTableDiv").css("display","block");
+                    $("#NoInfoMessage").css("display","none");
+                    var res = "<tr><td>"+data.readerName+"</td>" +
+                        "<td>"+data.readerPhone+"</td>" +
+                        "<td>"+data.readerSex+"</td></tr>";
                     $("#ReaderTable").append(res);
+                }else{
+                    $("#ReaderTable  tr:not(:first)").html("");
+                    $("#ReaderTableDiv").css("display","none");
+                    $("#NoInfoMessage").css("display","block");
+                }
+
             }
         })
 
@@ -100,14 +112,32 @@
             url:'/findOrdersByPhoneAndAdopt',
             data:{readerPhone:readerPhone},
             success:function (data) {
-                for(var i=0; i<data.length;i++){
-                    var res = "<tr><td>"+data[i].orderId+"</td>" +
-                        "<td>"+data[i].bookId+"</td>" +
-                        "<td>"+data[i].catalogName+"</td>" +
-                        "<td>"+data[i].bookLendTime+"</td>" +
-                        "<td>"+data[i].bookReturnTime+"</td></tr>";
+                if (data != ""){
+                    $("#resultTable  tr:not(:first)").html("");
+                    $("#resultTableDiv").css("display","block");
+                    $("#NoOrderMessage").css("display","none");
+                    for(var i=0; i<data.length;i++){
+                        var res = "<tr><td>"+data[i].orderId+"</td>" +
+                            "<td>"+data[i].bookId+"</td>" +
+                            "<td>"+data[i].catalogName+"</td>" +
+                            "<td>"+data[i].bookLendTime+"</td>" +
+                            "<td>"+data[i].bookReturnTime+"</td></tr>";
 
-                    $("#resultTable").append(res);
+                        var res = "<tr><td>" + data[i].orderId + "</td>" +
+                            "<td>" + data[i].bookId + "</td>" +
+                            "<td>" + data[i].catalogName + "</td>" +
+                            "<td>" + data[i].catalogAuthor + "</td>" +
+                            "<td>" + data[i].catalogPublisher + "</td>" +
+                            "<td>" + data[i].catalogPublishTime + "</td>" +
+                            "<td>" + data[i].bookLendTime + "</td>" +
+                            "<td>" + data[i].bookReturnTime + "</td></tr>";
+
+                        $("#resultTable").append(res);
+                    }
+                }else{
+                    $("#resultTable  tr:not(:first)").html("");
+                    $("#resultTableDiv").css("display","none");
+                    $("#NoOrderMessage").css("display","block");
                 }
             }
         })
@@ -154,11 +184,18 @@
         top:50px;
     }
     .main-layout-stuInfo{
-        top: 40px;
+        /*top: 40px;*/
         width: 100%;
         max-width: 500px;
         margin: auto;
         position: relative;
+    }
+    .hiddenStyle{
+        display: none;
+    }
+    .NoInfoMessage{
+        text-align: center;
+        display: none;
     }
 </style>
 </html>

@@ -1,10 +1,13 @@
 package model;
 
 public class Order {
-    private  Integer OrderId;
+    private Integer OrderId;
     private Integer BookId;
     private Integer CatalogId;
     private String CatalogName;
+    private String CatalogAuthor;
+    private String CatalogPublisher;
+    private String CatalogPublishTime;
     private Integer ReaderPhone;
     private String ReaderName;
     private String BookLendTime;
@@ -90,5 +93,29 @@ public class Order {
 
     public void setReaderName(String readerName) {
         ReaderName = readerName;
+    }
+
+    public String getCatalogAuthor() {
+        return CatalogAuthor;
+    }
+
+    public void setCatalogAuthor(String catalogAuthor) {
+        CatalogAuthor = catalogAuthor;
+    }
+
+    public String getCatalogPublisher() {
+        return CatalogPublisher;
+    }
+
+    public void setCatalogPublisher(String catalogPublisher) {
+        CatalogPublisher = catalogPublisher;
+    }
+
+    public String getCatalogPublishTime() {
+        return CatalogPublishTime;
+    }
+
+    public void setCatalogPublishTime(String catalogPublishTime) {
+        CatalogPublishTime = catalogPublishTime;
     }
 }

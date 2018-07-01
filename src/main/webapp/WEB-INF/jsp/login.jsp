@@ -34,6 +34,7 @@
 
 <form>
     <div class="div-layout">
+        <h1 style="text-align: center">登录</h1>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">电话</label>
             <input class="mdui-textfield-input" type="text" name="readerPhone" id="readerPhone"/>
@@ -54,7 +55,16 @@
         $("#submitButton").click(function () {
             var readerPhone = $("#readerPhone").val();
             var readerPassword = $("#readerPassword").val();
-            
+
+            if (readerPhone != ""){
+
+            } else{
+                mdui.snackbar({
+                    message: '电话不能为空',
+                    position: 'bottom'
+                });
+                return false;
+            }
             if (!isNaN(readerPhone)){
             }else {
                 return false;
@@ -62,6 +72,10 @@
 
             if (readerPassword != ""){
             } else{
+                mdui.snackbar({
+                    message: '密码不能为空',
+                    position: 'bottom'
+                });
                 return false;
             }
 

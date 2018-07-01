@@ -34,6 +34,7 @@
 
 <form>
     <div class="div-layout">
+        <h1 style="text-align: center">注册</h1>
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">电话</label>
             <input class="mdui-textfield-input" type="text" name="readerPhone" id="readerPhone"/>
